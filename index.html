@@ -315,6 +315,7 @@ textarea.input{resize:vertical;min-height:70px;border:1px solid var(--line);padd
 .px-price{display:block;margin-top:8px;padding:8px 10px;background:var(--paper);border-radius:6px;font-size:13px;color:var(--ink-2);line-height:1.7}
 .px-price b{color:var(--accent)}
 
+#stInv{display:none!important}
 #stInv .btn{grid-area:btn;width:100%}
 
 .opt3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -516,6 +517,7 @@ footer .brand{color:var(--ink)}
         <div class="field"><label for="ophone">手機號碼（訂購聯絡用）</label><input class="input" id="ophone" type="tel" inputmode="tel" autocomplete="tel" placeholder="例：0912345678"></div>
         <div class="field"><label for="ostorename">收件全家門市名稱</label><input class="input" id="ostorename" placeholder="例：台中○○店" autocomplete="off"></div>
         <div class="field"><label for="ostore">全家門市店舖號（共 6 碼）</label><input class="input" id="ostore" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="例：123456（請填 6 位數字）" autocomplete="off"><small style="color:var(--mute);font-size:12.5px">請填寫全家便利商店的 6 碼店舖號，避免寄錯門市。</small></div>
+        <div class="field"><label for="obanklast5">轉帳後五碼</label><input class="input" id="obanklast5" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="請填入轉出帳號末五碼（付款後填寫）" autocomplete="off"><small style="color:var(--mute);font-size:12.5px">尚未轉帳可以先留空，轉帳後再填寫並複製訂單。</small></div>
         <div class="field"><label for="owrist">手圍（公分）</label><input class="input num" id="owrist" inputmode="decimal" placeholder="例：13.8"><small style="color:var(--mute);font-size:12.5px">還沒量？看上方 <a href="#wrist">手圍測量方式</a>，數值可到小數點。</small></div>
         <div class="field"><label>喜歡的作品（選填，最多 3 條）</label><div class="picked" id="pickedBox"></div></div>
         <div class="field"><label>手鍊款式</label>
@@ -606,7 +608,7 @@ footer .brand{color:var(--ink)}
 
 <script>
 /* ===== 可自行修改的設定 ===== */
-const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","cardUrl":"","applePay":false,"bank":{"code":"812","name":"台新銀行","account":"20761000119891","holder":"陳奕筑"},"pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種","tag":"一次補齊","tagStyle":"violet"}]};
+const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","cardUrl":"","applePay":false,"bank":{"code":"812","name":"台新銀行","account":"20761000119891","holder":"陳奕筑"},"pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇｜贈送價值 NT$888 半小時塔羅占卜","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種｜贈送價值 NT$888 半小時塔羅占卜","tag":"一次補齊","tagStyle":"violet"}]};
 
 /* ===== 資料：數字 ===== */
 const COLOR = {1:"紅",2:"橙",3:"黃",4:"綠",5:"藍",6:"靛",7:"紫",8:"金粉",9:"白"};
@@ -919,10 +921,11 @@ function renderTiers(){
     <span class="price num"><small>NT$</small>${t.price.toLocaleString()}</span><span class="desc">${t.desc}</span></button>`).join("");
 }
 $("tiers").addEventListener("click",e=>{const b=e.target.closest(".tier");if(!b)return;state.tier=b.dataset.id;renderTiers();renderOrder();});
-["oname","owrist","onote","oig","ophone","ostorename","ostore"].forEach(id=>$(id).addEventListener("input",renderOrder));
+["oname","owrist","onote","oig","ophone","ostorename","ostore","obanklast5"].forEach(id=>$(id).addEventListener("input",renderOrder));
 $("opixiu").addEventListener("change",renderOrder);
 $("ogoals").addEventListener("change",renderOrder);
 $("ostore").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);renderOrder();});
+$("obanklast5").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,5);renderOrder();});
 $("pixiuPriceLabel").textContent=CONFIG.pixiuPrice?`＋NT$${CONFIG.pixiuPrice.toLocaleString()}`:"（依尺寸計價，挑好款式後報價）";
 $("pixiuLink").addEventListener("click",()=>{worksFilter="pixiu";worksMore=false;renderWorks();});
 
@@ -936,9 +939,11 @@ function orderText(){
     `IG 帳號：${$("oig").value.trim()||"（未填）"}`,
     `收件全家門市：${$("ostorename").value.trim()||"（未填）"}`,
     `全家門市店舖號：${$("ostore").value.trim()||"（未填）"}`,
+    `轉帳後五碼：${$("obanklast5").value.trim()||"（尚未提供）"}`,
     `手圍：${$("owrist").value.trim()?$("owrist").value.trim()+" cm":"（未填）"}`,
     `希望訂製功效：${[...document.querySelectorAll('#ogoals input:checked')].map(e=>e.value).join("、")||"（未選）"}`,
     `方案：${t.name} NT$${t.price.toLocaleString()}`,
+    ...(t.price>=2000?["方案贈禮：價值 NT$888 半小時塔羅占卜（30分鐘）"]:[]),
     `款式：${styleV==="A"?"A 設計款（＋吊飾）":styleV==="B"?"B 設計款（不加吊墜）":"C 男款（都不加）"}`,
     ...(styleV!=="C"?[`隔珠：${spacerV}`]:[]),
     ...(styleV==="A"?[`吊飾：${$("ocharm").value?"No."+$("ocharm").value:"交給Liz挑"}`]:[]),
