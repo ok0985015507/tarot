@@ -462,7 +462,7 @@ footer .brand{color:var(--ink)}
     </div>
     <div class="process">
       <div class="pstep"><span class="no">STEP 01</span><h4>自助計算</h4><p>在這裡輸入生日，看自己的生命靈數、先天與後天缺數。</p></div>
-      <div class="pstep"><span class="no">STEP 02</span><h4>量手圍・送出</h4><p>照測量方式量好手圍、選方案，點擊訂購表單，網站會預先填入已提供的資料。</p></div>
+      <div class="pstep"><span class="no">STEP 02</span><h4>量手圍・送出</h4><p>照測量方式量好手圍、選方案，填寫收件資訊，再複製訂單透過 LINE 傳給 Liz。</p></div>
       <div class="pstep"><span class="no">STEP 03</span><h4>Liz挑選晶種</h4><p>依你的缺數和當期庫存挑選同色系晶種，有需要會跟你討論。</p></div>
       <div class="pstep"><span class="no">STEP 04</span><h4>手工串製</h4><p>依手圍一條一條手工串，完成後拍照給你確認。</p></div>
       <div class="pstep"><span class="no">STEP 05</span><h4>消磁出貨</h4><p>附上消磁碎石與照顧說明一起寄出。收到後先消磁，再開始配戴。</p></div>
@@ -492,7 +492,7 @@ footer .brand{color:var(--ink)}
     <div class="sec-head">
       <p class="eyebrow"><b>Order</b>｜下單</p>
       <h2>訂製你的靈數手鍊</h2>
-      <p>選方案、填資料，下方會自動整理好你的訂單內容和計算結果。按「前往完成訂購」確認 Google 表單並提交；也可複製訂單內容透過 LINE 聯絡 Liz。</p>
+      <p>選方案、填寫個人與收件資料，下方會自動整理好訂單內容和計算結果。完成付款後複製訂單內容，透過 LINE 傳給 Liz 確認。</p>
     </div>
     <p class="cry-group-title" id="wrist">下單前，先量手圍</p>
     <div class="wrist">
@@ -514,7 +514,8 @@ footer .brand{color:var(--ink)}
         <div class="field"><label for="oname">姓名 / 暱稱</label><input class="input" id="oname" autocomplete="name" placeholder="例：小美"></div>
         <div class="field"><label for="oig">IG 帳號</label><input class="input" id="oig" placeholder="例：liz_tarot_____（沒有可留空）"></div>
         <div class="field"><label for="ophone">手機號碼（訂購聯絡用）</label><input class="input" id="ophone" type="tel" inputmode="tel" autocomplete="tel" placeholder="例：0912345678"></div>
-        <div class="field"><label for="ostore">全家取貨門市店號</label><input class="input" id="ostore" inputmode="numeric" placeholder="例：123456（請填門市店號）"></div>
+        <div class="field"><label for="ostorename">收件全家門市名稱</label><input class="input" id="ostorename" placeholder="例：台中○○店" autocomplete="off"></div>
+        <div class="field"><label for="ostore">全家門市店舖號（共 6 碼）</label><input class="input" id="ostore" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="例：123456（請填 6 位數字）" autocomplete="off"><small style="color:var(--mute);font-size:12.5px">請填寫全家便利商店的 6 碼店舖號，避免寄錯門市。</small></div>
         <div class="field"><label for="owrist">手圍（公分）</label><input class="input num" id="owrist" inputmode="decimal" placeholder="例：13.8"><small style="color:var(--mute);font-size:12.5px">還沒量？看上方 <a href="#wrist">手圍測量方式</a>，數值可到小數點。</small></div>
         <div class="field"><label>喜歡的作品（選填，最多 3 條）</label><div class="picked" id="pickedBox"></div></div>
         <div class="field"><label>手鍊款式</label>
@@ -574,12 +575,6 @@ footer .brand{color:var(--ink)}
             <span class="st-no">STEP 2</span>
             <div class="st-body"><b>填寫發票資料</b><small id="invHint">付款後填寫表單，Liz會開立電子發票給你</small></div>
             <a class="btn ghost" href="#" target="_blank" rel="noopener" id="invBtn">填寫發票資料表單 →</a>
-          </div>
-          <div class="st" id="stGoogle">
-            <span class="st-no">STEP 2</span>
-            <div class="st-body"><b>確認資料・填寫正式訂購表單</b><small>網站會帶入已填的姓名、生日、IG、功效、方案、手圍、手機及全家店號；請在 Google 表單確認資料、補填轉帳後五碼，再按「提交」。尚未付款請勿填寫虛構的後五碼。</small></div>
-            <a class="btn" href="#" target="_blank" rel="noopener noreferrer" id="googleOrderBtn">✨ 前往完成訂購（Google 表單）</a>
-            <small id="googleOrderHint" style="display:block;color:var(--mute);margin-top:8px" role="status"></small>
           </div>
           <div class="st" id="st1">
             <span class="st-no">STEP 3</span>
@@ -924,8 +919,10 @@ function renderTiers(){
     <span class="price num"><small>NT$</small>${t.price.toLocaleString()}</span><span class="desc">${t.desc}</span></button>`).join("");
 }
 $("tiers").addEventListener("click",e=>{const b=e.target.closest(".tier");if(!b)return;state.tier=b.dataset.id;renderTiers();renderOrder();});
-["oname","owrist","onote","oig"].forEach(id=>$(id).addEventListener("input",renderOrder));
+["oname","owrist","onote","oig","ophone","ostorename","ostore"].forEach(id=>$(id).addEventListener("input",renderOrder));
 $("opixiu").addEventListener("change",renderOrder);
+$("ogoals").addEventListener("change",renderOrder);
+$("ostore").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);renderOrder();});
 $("pixiuPriceLabel").textContent=CONFIG.pixiuPrice?`＋NT$${CONFIG.pixiuPrice.toLocaleString()}`:"（依尺寸計價，挑好款式後報價）";
 $("pixiuLink").addEventListener("click",()=>{worksFilter="pixiu";worksMore=false;renderWorks();});
 
@@ -935,7 +932,12 @@ function orderText(){
   const L=[
     "【Liz塔羅占卜・訂單】",
     `姓名：${$("oname").value.trim()||"（未填）"}`,
+    `手機號碼：${$("ophone").value.trim()||"（未填）"}`,
+    `IG 帳號：${$("oig").value.trim()||"（未填）"}`,
+    `收件全家門市：${$("ostorename").value.trim()||"（未填）"}`,
+    `全家門市店舖號：${$("ostore").value.trim()||"（未填）"}`,
     `手圍：${$("owrist").value.trim()?$("owrist").value.trim()+" cm":"（未填）"}`,
+    `希望訂製功效：${[...document.querySelectorAll('#ogoals input:checked')].map(e=>e.value).join("、")||"（未選）"}`,
     `方案：${t.name} NT$${t.price.toLocaleString()}`,
     `款式：${styleV==="A"?"A 設計款（＋吊飾）":styleV==="B"?"B 設計款（不加吊墜）":"C 男款（都不加）"}`,
     ...(styleV!=="C"?[`隔珠：${spacerV}`]:[]),
@@ -958,7 +960,7 @@ function orderText(){
 function renderOrder(){$("orderText").textContent=orderText();renderPay();if($("st1")&&$("st1").classList.contains("ok")){$("st1").classList.remove("ok");$("copyBtn").textContent="複製訂單內容";$("toast").textContent="訂單內容有更新，請重新複製一次。";}}
 $("copyBtn").addEventListener("click",()=>{
   const txt=orderText();
-  const done=()=>{$("st1").classList.add("ok");$("copyBtn").textContent="✓ 已複製";$("toast").textContent="已複製！接著按 STEP 2 開啟 LINE 貼上送出。";};
+  const done=()=>{$("st1").classList.add("ok");$("copyBtn").textContent="✓ 已複製";$("toast").textContent="已複製！接著開啟 LINE 貼上訂單內容送出。";};
   const fallback=()=>{const r=document.createRange();r.selectNodeContents($("orderText"));const s=getSelection();s.removeAllRanges();s.addRange(r);$("toast").textContent="已幫你選取訂單內容，請按「複製」後貼到 LINE。";};
   try{navigator.clipboard.writeText(txt).then(done,fallback);}catch(e){fallback();}
 });
@@ -1007,31 +1009,6 @@ document.querySelectorAll("img[data-empty]").forEach(e=>e.remove());
 if(!WORKS.length){$("works").hidden=true;document.querySelectorAll('a[href="#works"]').forEach(e=>e.remove());$("pickedBox").closest(".field").hidden=true;}
 function renderAll(){renderStyle();renderPicked();renderSheet();renderMissing();renderCrystals();renderWorks();renderTiers();renderOrder();}
 
-
-// Google 表單預先填入：只傳客人已提供的欄位，不會自動提交。
-const GOOGLE_FORM_BASE="https://docs.google.com/forms/d/e/1FAIpQLSc_MnJY_RVq9nqqiZ2V4d_r3fVGTAtYAEHis0AEM-JZnrorRA/viewform";
-const GOOGLE_TIERS={basic:"方案A ＄1500 入門款",cp:"方案B $ 2000 CP值套餐",premium:"方案C $ 2500 尊貴款"};
-function openGoogleOrder(event){
-  const name=$("oname").value.trim(), wrist=$("owrist").value.trim();
-  const hint=$("googleOrderHint");
-  if(!name){event.preventDefault();hint.textContent="請先填寫姓名。";$("oname").focus();return;}
-  if(!wrist || !Number.isFinite(Number(wrist)) || Number(wrist)<=0){event.preventDefault();hint.textContent="請先填寫正確的手圍（公分）。";$("owrist").focus();return;}
-  const r=state.pre;
-  const url=new URL(GOOGLE_FORM_BASE);
-  url.searchParams.set("usp","pp_url");
-  url.searchParams.set("entry.347148871",name);
-  url.searchParams.set("entry.852843412",`${r.y}/${String(r.m).padStart(2,"0")}/${String(r.d).padStart(2,"0")}`);
-  if($("oig").value.trim())url.searchParams.set("entry.515603680",$("oig").value.trim());
-  document.querySelectorAll('#ogoals input:checked').forEach(el=>url.searchParams.append("entry.281426019",el.value));
-  url.searchParams.set("entry.550045267",GOOGLE_TIERS[state.tier]);
-  url.searchParams.set("entry.181578958",wrist);
-  const phone=$("ophone").value.trim(), store=$("ostore").value.trim();
-  if(phone)url.searchParams.set("entry.1367931580",phone);
-  if(store)url.searchParams.set("entry.110298670",store);
-  hint.textContent="已開啟表單。請確認選項是否帶入，補填其他必填欄位後按提交。";
-  event.currentTarget.href=url.toString(); // 由瀏覽器原生連結開新分頁，避免彈出視窗遭阻擋
-}
-$("googleOrderBtn").addEventListener("click",openGoogleOrder);
 
 /* 範例：講義的 1999/03/13 */
 state.pre=compute(1999,3,13,3,13);
