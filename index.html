@@ -578,7 +578,7 @@ footer .brand{color:var(--ink)}
           <div class="st" id="stGoogle">
             <span class="st-no">STEP 2</span>
             <div class="st-body"><b>確認資料・填寫正式訂購表單</b><small>網站會帶入已填的姓名、生日、IG、功效、方案、手圍、手機及全家店號；請在 Google 表單確認資料、補填轉帳後五碼，再按「提交」。尚未付款請勿填寫虛構的後五碼。</small></div>
-            <button class="btn" type="button" id="googleOrderBtn">✨ 前往完成訂購（Google 表單）</button>
+            <a class="btn" href="#" target="_blank" rel="noopener noreferrer" id="googleOrderBtn">✨ 前往完成訂購（Google 表單）</a>
             <small id="googleOrderHint" style="display:block;color:var(--mute);margin-top:8px" role="status"></small>
           </div>
           <div class="st" id="st1">
@@ -1011,11 +1011,11 @@ function renderAll(){renderStyle();renderPicked();renderSheet();renderMissing();
 // Google 表單預先填入：只傳客人已提供的欄位，不會自動提交。
 const GOOGLE_FORM_BASE="https://docs.google.com/forms/d/e/1FAIpQLSc_MnJY_RVq9nqqiZ2V4d_r3fVGTAtYAEHis0AEM-JZnrorRA/viewform";
 const GOOGLE_TIERS={basic:"方案A ＄1500 入門款",cp:"方案B $ 2000 CP值套餐",premium:"方案C $ 2500 尊貴款"};
-function openGoogleOrder(){
+function openGoogleOrder(event){
   const name=$("oname").value.trim(), wrist=$("owrist").value.trim();
   const hint=$("googleOrderHint");
-  if(!name){hint.textContent="請先填寫姓名。";$("oname").focus();return;}
-  if(!wrist || !Number.isFinite(Number(wrist)) || Number(wrist)<=0){hint.textContent="請先填寫正確的手圍（公分）。";$("owrist").focus();return;}
+  if(!name){event.preventDefault();hint.textContent="請先填寫姓名。";$("oname").focus();return;}
+  if(!wrist || !Number.isFinite(Number(wrist)) || Number(wrist)<=0){event.preventDefault();hint.textContent="請先填寫正確的手圍（公分）。";$("owrist").focus();return;}
   const r=state.pre;
   const url=new URL(GOOGLE_FORM_BASE);
   url.searchParams.set("usp","pp_url");
@@ -1029,7 +1029,7 @@ function openGoogleOrder(){
   if(phone)url.searchParams.set("entry.1367931580",phone);
   if(store)url.searchParams.set("entry.110298670",store);
   hint.textContent="已開啟表單。請確認選項是否帶入，補填其他必填欄位後按提交。";
-  window.open(url.toString(),"_blank","noopener,noreferrer");
+  event.currentTarget.href=url.toString(); // 由瀏覽器原生連結開新分頁，避免彈出視窗遭阻擋
 }
 $("googleOrderBtn").addEventListener("click",openGoogleOrder);
 
