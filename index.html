@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* B、C 方案贈禮：獨立醒目呈現 */
+.tier-gift{display:block;margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff1e3;color:#8b4f39;font-weight:700;font-size:14px;line-height:1.6;text-align:left;white-space:normal;}
+</style>
 </head>
 <body>
 <title>Liz塔羅占卜｜免費算出你缺少的數字</title>
@@ -608,7 +611,7 @@ footer .brand{color:var(--ink)}
 
 <script>
 /* ===== 可自行修改的設定 ===== */
-const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","cardUrl":"","applePay":false,"bank":{"code":"812","name":"台新銀行","account":"20761000119891","holder":"陳奕筑"},"pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇｜贈送價值 NT$888 半小時塔羅占卜","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種｜贈送價值 NT$888 半小時塔羅占卜","tag":"一次補齊","tagStyle":"violet"}]};
+const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","cardUrl":"","applePay":false,"bank":{"code":"812","name":"台新銀行","account":"20761000119891","holder":"陳奕筑"},"pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種","tag":"一次補齊","tagStyle":"violet"}]};
 
 /* ===== 資料：數字 ===== */
 const COLOR = {1:"紅",2:"橙",3:"黃",4:"綠",5:"藍",6:"靛",7:"紫",8:"金粉",9:"白"};
@@ -918,7 +921,7 @@ function renderWorks(){
 function renderTiers(){
   $("tiers").innerHTML=CONFIG.tiers.map(t=>`<button type="button" class="tier" aria-pressed="${t.id===state.tier}" data-id="${t.id}">
     ${t.tag?`<span class="pop badge ${t.tagStyle||""}">${t.tag}</span>`:""}<span class="name">${t.name}</span>
-    <span class="price num"><small>NT$</small>${t.price.toLocaleString()}</span><span class="desc">${t.desc}</span></button>`).join("");
+    <span class="price num"><small>NT$</small>${t.price.toLocaleString()}</span><span class="desc">${t.desc.split("｜")[0]}</span>${t.price>=2000?`<span class="tier-gift">🎁 贈送價值 NT$888 的半小時塔羅占卜（30分鐘）</span>`:""}</button>`).join("");
 }
 $("tiers").addEventListener("click",e=>{const b=e.target.closest(".tier");if(!b)return;state.tier=b.dataset.id;renderTiers();renderOrder();});
 ["oname","owrist","onote","oig","ophone","ostorename","ostore","obanklast5"].forEach(id=>$(id).addEventListener("input",renderOrder));
