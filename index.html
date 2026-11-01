@@ -496,7 +496,7 @@ footer .brand{color:var(--ink)}
     <div class="sec-head">
       <p class="eyebrow"><b>Order</b>｜下單</p>
       <h2>訂製你的靈數手鍊</h2>
-      <p>選方案、填寫個人與收件資料，下方會自動整理好訂單內容和計算結果。完成付款後複製訂單內容，透過 LINE 傳給 Liz 確認。</p>
+      <p>選方案、填寫個人與收件資料，下方會自動整理好訂單內容和計算結果。填寫完成後複製訂單內容，透過 LINE 傳給 Liz，我會私訊提供匯款帳號。</p>
     </div>
     <p class="cry-group-title" id="wrist">下單前，先量手圍</p>
     <div class="wrist">
@@ -520,7 +520,6 @@ footer .brand{color:var(--ink)}
         <div class="field"><label for="ophone">手機號碼（訂購聯絡用）</label><input class="input" id="ophone" type="tel" inputmode="tel" autocomplete="tel" placeholder="例：0912345678"></div>
         <div class="field"><label for="ostorename">收件全家門市名稱</label><input class="input" id="ostorename" placeholder="例：台中○○店" autocomplete="off"></div>
         <div class="field"><label for="ostore">全家門市店舖號（共 6 碼）</label><input class="input" id="ostore" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="例：123456（請填 6 位數字）" autocomplete="off"><small style="color:var(--mute);font-size:12.5px">請填寫全家便利商店的 6 碼店舖號，避免寄錯門市。</small></div>
-        <div class="field"><label for="obanklast5">轉帳後五碼</label><input class="input" id="obanklast5" type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="請填入轉出帳號末五碼（付款後填寫）" autocomplete="off"><small style="color:var(--mute);font-size:12.5px">尚未轉帳可以先留空，轉帳後再填寫並複製訂單。</small></div>
         <div class="field"><label for="owrist">手圍（公分）</label><input class="input num" id="owrist" inputmode="decimal" placeholder="例：13.8"><small style="color:var(--mute);font-size:12.5px">還沒量？看上方 <a href="#wrist">手圍測量方式</a>，數值可到小數點。</small></div>
         <div class="field"><label>喜歡的作品（選填，最多 3 條）</label><div class="picked" id="pickedBox"></div></div>
         <div class="field"><label>手鍊款式</label>
@@ -551,44 +550,20 @@ footer .brand{color:var(--ink)}
         <p class="eyebrow">Order summary｜訂單內容</p>
         <pre id="orderText"></pre>
         <div class="steps2">
-          <div class="st st3" id="st3">
-            <span class="st-no">STEP 1</span>
-            <div class="st-body"><b>先完成付款</b><small id="payHint"></small></div>
-            <div class="pay" id="payBox">
-              <div class="pay-tabs" role="tablist">
-                <button type="button" role="tab" aria-selected="true" data-p="card">信用卡 <span class="applepay">Apple Pay</span></button>
-                <button type="button" role="tab" aria-selected="false" data-p="bank">銀行轉帳</button>
-              </div>
-              <div class="pay-panel" id="payCard">
-                <p class="pay-amt">付款金額 <b id="amtCard"></b> <button type="button" class="mini" id="copyAmtCard">複製</button></p>
-                <a class="btn card" href="#" target="_blank" rel="noopener" id="cardBtn">前往刷卡付款 <span class="applepay light">Apple Pay</span></a>
-                <small>安全付款頁，可用信用卡付款。付款完成後請截圖，最後一步一起傳給Liz。</small>
-              </div>
-              <div class="pay-panel" id="payBank" hidden>
-                <dl class="bank">
-                  <div><dt>銀行</dt><dd id="bkName"></dd></div>
-                  <div><dt>帳號</dt><dd><span id="bkAcc" class="num"></span> <button type="button" class="mini" id="copyAcc">複製</button></dd></div>
-                  <div><dt>戶名</dt><dd id="bkHolder"></dd></div>
-                  <div><dt>金額</dt><dd><b id="amtBank" class="num"></b> <button type="button" class="mini" id="copyAmt">複製</button></dd></div>
-                </dl>
-                <small>轉帳完成後，把帳號後五碼一起傳到 LINE。</small>
-              </div>
-            </div>
-            <p class="pay-wait" id="payWait" hidden>你有加購貔貅，這一步先跳過。直接做後面兩步 把訂單傳給Liz，Liz會在 LINE 傳幾款貔貅讓你挑，選到跟你有緣分的那一隻、確認總金額後再付款。</p>
-          </div>
+          <div class="st st3" id="st3"><span class="st-no">STEP 1</span><div class="st-body"><b>填寫訂單，私訊 Liz 取得匯款資訊</b><small>網站不提供付款帳號。完成填寫並複製訂單後，傳送給 Liz，我會私訊提供匯款帳號；確認款項後安排製作。</small></div></div>
           <div class="st" id="stInv">
-            <span class="st-no">STEP 2</span>
-            <div class="st-body"><b>填寫發票資料</b><small id="invHint">付款後填寫表單，Liz會開立電子發票給你</small></div>
+            <span class="st-no">付款後</span>
+            <div class="st-body"><b>填寫發票資料（可稍後）</b><small id="invHint">收到 Liz 的匯款資訊並完成付款後，再填寫發票資料</small></div>
             <a class="btn ghost" href="#" target="_blank" rel="noopener" id="invBtn">填寫發票資料表單 →</a>
           </div>
           <div class="st" id="st1">
-            <span class="st-no">STEP 3</span>
-            <div class="st-body"><b>複製訂單內容</b><small>付款完成後按一下，訂單、計算結果和付款資訊就複製好了</small></div>
+            <span class="st-no">STEP 2</span>
+            <div class="st-body"><b>複製訂單內容</b><small>填寫完成後按一下，訂單和計算結果就複製好了</small></div>
             <button class="btn" type="button" id="copyBtn">複製訂單內容</button>
           </div>
           <div class="st" id="st2">
-            <span class="st-no">STEP 4</span>
-            <div class="st-body"><b>開啟 LINE 貼給Liz確認</b><small>在Liz官方 LINE 聊天室長按輸入框「貼上」送出，刷卡的話再附上付款截圖，Liz確認後就開始製作</small></div>
+            <span class="st-no">STEP 3</span>
+            <div class="st-body"><b>開啟 LINE 貼給Liz確認</b><small>在 Liz 官方 LINE 聊天室貼上訂單並送出，我會私訊提供匯款帳號，確認付款後開始製作</small></div>
             <a class="btn line" id="lineBtn" href="https://lin.ee/71kk9jN" target="_blank" rel="noopener"><svg class="line-ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#06C755"/><path fill="#fff" d="M12 5.2c-4.2 0-7.6 2.7-7.6 6.1 0 3 2.7 5.5 6.4 6 .3.1.6.2.7.4.1.2.1.5 0 .7l-.1.7c0 .2-.2.8.7.4s4.8-2.8 6.5-4.8c1.2-1.3 1.7-2.6 1.7-3.9 0-3.4-3.4-6.1-7.6-6.1z"/><path fill="#06C755" d="M8 9.6h.7v2.8h1.5v.6H8zm2.8 0h.7V13h-.7zm1.4 0h.6l1.5 2.1V9.6h.7V13h-.6l-1.5-2.1V13h-.7zm3.3 0h2.2v.6H16v.8h1.5v.6H16v.8h1.6v.6h-2.3z"/></svg>開啟 LINE 傳給Liz</a>
           </div>
 
@@ -611,7 +586,7 @@ footer .brand{color:var(--ink)}
 
 <script>
 /* ===== 可自行修改的設定 ===== */
-const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","cardUrl":"","applePay":false,"bank":{"code":"812","name":"台新銀行","account":"20761000119891","holder":"陳奕筑"},"pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種","tag":"一次補齊","tagStyle":"violet"}]};
+const CONFIG = {"lineUrl":"https://lin.ee/71kk9jN","pixiuEnabled":true,"pixiuPrice":0,"charmCount":0,"charmImg":false,"tiers":[{"id":"basic","name":"入門款","price":1500,"desc":"第一條靈數手鍊"},{"id":"cp","name":"CP值套餐","price":2000,"desc":"最多人選擇","tag":"人氣推薦"},{"id":"premium","name":"尊貴款","price":2500,"desc":"高階晶種","tag":"一次補齊","tagStyle":"violet"}]};
 
 /* ===== 資料：數字 ===== */
 const COLOR = {1:"紅",2:"橙",3:"黃",4:"綠",5:"藍",6:"靛",7:"紫",8:"金粉",9:"白"};
@@ -891,7 +866,7 @@ function renderCrystals(){
   $("cryWrap").innerHTML=`<div class="energy-list">${h}</div>`;
 }
 
-let payMethod="card";
+
 let worksFilter="all",worksMore=false,picked=[];
 function togglePick(i){
   const k=picked.indexOf(i);
@@ -924,11 +899,10 @@ function renderTiers(){
     <span class="price num"><small>NT$</small>${t.price.toLocaleString()}</span><span class="desc">${t.desc.split("｜")[0]}</span>${t.price>=2000?`<span class="tier-gift">🎁 贈送價值 NT$888 的半小時塔羅占卜（30分鐘）</span>`:""}</button>`).join("");
 }
 $("tiers").addEventListener("click",e=>{const b=e.target.closest(".tier");if(!b)return;state.tier=b.dataset.id;renderTiers();renderOrder();});
-["oname","owrist","onote","oig","ophone","ostorename","ostore","obanklast5"].forEach(id=>$(id).addEventListener("input",renderOrder));
+["oname","owrist","onote","oig","ophone","ostorename","ostore"].forEach(id=>$(id).addEventListener("input",renderOrder));
 $("opixiu").addEventListener("change",renderOrder);
 $("ogoals").addEventListener("change",renderOrder);
 $("ostore").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);renderOrder();});
-$("obanklast5").addEventListener("input",e=>{e.target.value=e.target.value.replace(/\D/g,"").slice(0,5);renderOrder();});
 $("pixiuPriceLabel").textContent=CONFIG.pixiuPrice?`＋NT$${CONFIG.pixiuPrice.toLocaleString()}`:"（依尺寸計價，挑好款式後報價）";
 $("pixiuLink").addEventListener("click",()=>{worksFilter="pixiu";worksMore=false;renderWorks();});
 
@@ -942,7 +916,7 @@ function orderText(){
     `IG 帳號：${$("oig").value.trim()||"（未填）"}`,
     `收件全家門市：${$("ostorename").value.trim()||"（未填）"}`,
     `全家門市店舖號：${$("ostore").value.trim()||"（未填）"}`,
-    `轉帳後五碼：${$("obanklast5").value.trim()||"（尚未提供）"}`,
+    
     `手圍：${$("owrist").value.trim()?$("owrist").value.trim()+" cm":"（未填）"}`,
     `希望訂製功效：${[...document.querySelectorAll('#ogoals input:checked')].map(e=>e.value).join("、")||"（未選）"}`,
     `方案：${t.name} NT$${t.price.toLocaleString()}`,
@@ -960,7 +934,7 @@ function orderText(){
   ];
   if(state.post){L.push(`農曆生日：${state.post.y}/${String(state.post.m).padStart(2,"0")}/${String(state.post.d).padStart(2,"0")}`);L.push(`✧後天空缺數：${post.length?post.join("、"):"無"}`);}
   L.push(`✧建議配色：${miss.map(n=>COLOR[n]).join("、")}`);
-  L.splice(L.indexOf("——"),0,($("opixiu").checked&&!CONFIG.pixiuPrice)?"付款：挑好貔貅、確認總金額後再付款":payMethod==="card"?"付款：信用卡／Apple Pay（附截圖）":"付款：銀行轉帳（後五碼傳 LINE 告知）");
+  L.splice(L.indexOf("——"),0,"付款方式：訂單傳給 Liz 後，由 Liz 私訊提供匯款帳號；確認付款後安排製作");
   L.push(`✧喜歡的作品：${picked.length?picked.map(i=>"No."+WORKS[i].code).join("、"):"交給Liz搭配"}`);
   if($("onote").value.trim())L.push("——","備註："+$("onote").value.trim());
   return L.join("\n");
@@ -981,22 +955,9 @@ $("worksMore").addEventListener("click",()=>{worksMore=true;renderWorks();});
 function renderPvPick(){const pv=window._pv;if(!pv||!pv.picks[pv.cur])return;const i=pv.picks[pv.cur].i;const on=picked.includes(i);$("pvPick").setAttribute("aria-pressed",on);$("pvPick").textContent=on?"✓ 已選":"＋ 選這條";}
 $("pvPick").addEventListener("click",()=>{const pv=window._pv;togglePick(pv.picks[pv.cur].i);});
 
-/* 付款 */
+/* 付款資訊僅由 Liz 私訊提供，網站不顯示銀行或線上付款資料 */
 function orderTotal(){const t=CONFIG.tiers.find(x=>x.id===state.tier);return t.price+($("opixiu").checked?CONFIG.pixiuPrice:0);}
-function renderPay(){
-  const wait=$("opixiu").checked&&!CONFIG.pixiuPrice;
-  $("invHint").textContent=wait?"等挑好貔貅、完成付款後再填寫，Liz會開立電子發票給你":"付款後填寫表單，Liz會開立電子發票給你";
-  $("payBox").hidden=wait;$("payWait").hidden=!wait;
-  $("payHint").textContent=wait?"先挑一隻跟你有緣分的貔貅":"選信用卡或銀行轉帳，付完再進行下一步";
-  const amt="NT$"+orderTotal().toLocaleString();
-  $("amtCard").textContent=amt;$("amtBank").textContent=amt;
-}
-$("bkName").textContent=CONFIG.bank.code+" "+CONFIG.bank.name;$("bkAcc").textContent=CONFIG.bank.account;$("bkHolder").textContent=CONFIG.bank.holder;$("cardBtn").href=CONFIG.cardUrl;
-document.querySelector(".pay-tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...b.parentNode.children].forEach(x=>x.setAttribute("aria-selected",x===b));payMethod=b.dataset.p;renderOrder();$("payCard").hidden=b.dataset.p!=="card";$("payBank").hidden=b.dataset.p!=="bank";});
-function copyText(txt,btn){const ok=()=>{const o=btn.textContent;btn.textContent="已複製";setTimeout(()=>btn.textContent=o,1500);};try{navigator.clipboard.writeText(txt).then(ok,()=>{});}catch(e){}}
-$("copyAcc").addEventListener("click",e=>copyText(CONFIG.bank.account,e.currentTarget));
-$("copyAmtCard").addEventListener("click",e=>copyText(String(orderTotal()),e.currentTarget));
-$("copyAmt").addEventListener("click",e=>copyText(String(orderTotal()),e.currentTarget));
+function renderPay(){}
 
 let styleV="A",spacerV="金色";
 function renderStyle(){
@@ -1010,7 +971,7 @@ $("optSpacer").addEventListener("click",e=>{const b=e.target.closest(".opt");if(
 $("ocharm").addEventListener("change",renderOrder);
 
 /* 產生器設定開關 */
-if(!CONFIG.applePay)document.querySelectorAll(".applepay").forEach(e=>e.remove());
+document.querySelectorAll(".applepay").forEach(e=>e.remove());
 (function(){const sel=$("ocharm");for(let i=1;i<=CONFIG.charmCount;i++){const o=document.createElement("option");o.value=i;o.textContent="No."+i;sel.appendChild(o);}
  if(!CONFIG.charmCount||!CONFIG.charmImg){document.querySelector("#fCharm .charms").remove();sel.hidden=true;document.querySelector("#fCharm small").textContent="吊飾款式會在 LINE 跟Liz確認。";}})();
 document.querySelectorAll("img[data-empty]").forEach(e=>e.remove());
@@ -1024,6 +985,6 @@ renderAll();
 document.fonts&&document.fonts.ready.then(()=>{});
 </script>
 
-<script>(function(){var b=document.querySelector('.pay-tabs button[data-p=bank]');if(b)b.click();var c=document.querySelector('.pay-tabs button[data-p=card]');if(c)c.remove();var s=document.getElementById('stInv');if(s)s.remove();document.querySelectorAll('.st-no').forEach(function(e,i){e.textContent='STEP '+(i+1);});})();</script>
+
 </body>
 </html>
